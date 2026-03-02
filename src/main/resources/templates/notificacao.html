@@ -42,7 +42,7 @@
         <h1>Notificação de Tarefa</h1>
     </div>
     <div class="content">
-        <p>Aviso: Sua tarefa <span class="important" th:text="${nomeTarefa}">Nome da Tarefa</span> está agendada para hoje às <span class="important" th:text="${dataEvento}">Horário</span>.</p>
+        <p>Aviso: Sua tarefa <span class="important" th:text="${nomeTarefa}">Nome da Tarefa</span> está agendada para hoje às <span class="important" th:text="${#temporals.format(dataEvento, 'dd/MM/yyyy ''às'' HH:mm')}"></span>.</p>
         <p>Confira sua descrição:</p>
         <p th:text="${descricao}">Descrição da Tarefa</p>
     </div>

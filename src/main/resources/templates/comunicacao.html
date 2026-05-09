@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Comunicação</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: #333333;
+        }
+
+        .content {
+            margin: 20px 0;
+        }
+
+        .footer {
+            text-align: center;
+            color: #555555;
+        }
+
+        .important {
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .message-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Nova Comunicação</h1>
+    </div>
+
+    <div class="content">
+
+        <p>
+            Olá,
+            <span class="important"
+                  th:text="${nomeDestinatario}">
+                Destinatário
+            </span>.
+        </p>
+
+        <p>
+            Você recebeu uma nova comunicação através do sistema.
+        </p>
+
+        <p>
+            <strong>Modo de envio:</strong>
+            <span class="important"
+                  th:text="${modoDeEnvio}">
+                EMAIL
+            </span>
+        </p>
+
+        <p>
+            <strong>Data agendada:</strong>
+            <span class="important"
+                  th:text="${#temporals.format(dataHoraEnvio, 'dd/MM/yyyy ''às'' HH:mm')}">
+            </span>
+        </p>
+
+        <div class="message-box">
+
+            <p>
+                <strong>Mensagem:</strong>
+            </p>
+
+            <p th:text="${mensagem}">
+                Conteúdo da mensagem
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+
+        <p>
+            Obrigado por utilizar nosso sistema de comunicação.
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>

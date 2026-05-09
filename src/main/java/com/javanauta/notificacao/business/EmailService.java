@@ -1,5 +1,6 @@
 package com.javanauta.notificacao.business;
 
+import com.javanauta.notificacao.business.dto.ComunicacaoNotificacaoDTO;
 import com.javanauta.notificacao.business.dto.TarefasDTO;
 import com.javanauta.notificacao.infrastructure.exceptions.EmailException;
 import jakarta.mail.MessagingException;
@@ -57,5 +58,57 @@ public class EmailService {
             throw new EmailException("Erro ao enviar email ", e.getCause());
         }
 
+    }
+
+    public void enviaComunicacao(ComunicacaoNotificacaoDTO dto){
+
+        try{
+            MimeMessage mensagem = javaMailSender.createMimeMessage();
+
+            MimeMessageHelper helper =
+                    new MimeMessageHelper(
+                            mensagem,
+                            true,
+                            StandardCharsets.UTF_8.name());
+
+            helper.setFrom(
+                    new InternetAddress(remetente, nomeRemetente));
+
+            helper.setTo(dto.getEmailDestinatario());
+
+            helper.setSubject("Nova Comunicação");
+
+            Context context = new Context();
+
+            context.setVariable(
+                    "nomeDestinatario",
+                    dto.getNomeDestinatario());
+
+            context.setVariable(
+                    "mensagem",
+                    dto.getMensagem());
+
+            context.setVariable(
+                    "modoDeEnvio",
+                    dto.getModoDeEnvio());
+
+            context.setVariable(
+                    "dataHoraEnvio",
+                    dto.getDataHoraEnvio());
+
+            String template =
+                    templateEngine.process(
+                            "comunicacao",
+                            context);
+
+            helper.setText(template, true);
+
+            javaMailSender.send(mensagem);
+
+        } catch (Exception e){
+            throw new EmailException(
+                    "Erro ao enviar comunicação",
+                    e);
+        }
     }
 }
